@@ -6,11 +6,29 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Status } from './value-objects/status.enum';
+import { Post } from 'src/domain/post/post.entity';
+import { Like } from '../post/like.entity';
 
 @Entity()
 export class User {
+  activate() {
+    if (this.status === Status.ACTIVE) {
+      throw new Error('User already activated');
+    }
+    this.status = Status.ACTIVE;
+  }
+
+  deactivate() {
+    if (this.status === Status.INACTIVE) {
+      throw new Error('User already deactivated');
+    }
+    this.status = Status.INACTIVE;
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -74,4 +92,12 @@ export class User {
 
   @DeleteDateColumn()
   deleted_at: Date;
+
+  @OneToMany(() => Post, (post) => post.user)
+  @JoinColumn({ name: 'id', referencedColumnName: 'user_id' })
+  posts: Post[];
+
+  @OneToMany(() => Like, (like) => like.user)
+  @JoinColumn({ name: 'id', referencedColumnName: 'user_id' })
+  likes: Like[];
 }

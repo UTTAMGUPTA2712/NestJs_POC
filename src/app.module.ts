@@ -5,7 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './features/user/user.module';
-import { AppDataSource } from './config/database.config';
+import { AppDataSource } from './infrastructure/database/database.providers';
+import { PostModule } from './features/post/post.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AppDataSource } from './config/database.config';
       useFactory: () => ({ ...AppDataSource.options }),
     }),
     UserModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
