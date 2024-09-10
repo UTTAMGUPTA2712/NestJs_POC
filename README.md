@@ -74,4 +74,5 @@ Nest is [MIT licensed](LICENSE).
 
 
 
-npx typeorm-ts-node-commonjs   migration:generate  -d ./src/config/database.config.ts ./src/migrations/updated-schema# NestJs_POC
+npx typeorm-ts-node-commonjs   migration:generate  -d ./src/infrastructure/database/database.providers.ts ./src/migrations/updated-schema
+# NestJs_POC

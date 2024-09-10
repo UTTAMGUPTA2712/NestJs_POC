@@ -38,8 +38,8 @@ export class Like {
   @Column({
     type: 'enum',
     nullable: false,
-    default: Reaction.LIKE,
-    enum: Reaction,
+    default: Reaction.ENUM.LIKE,
+    enum: Reaction.getValues(),
   })
   reaction: Reaction;
 

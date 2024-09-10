@@ -16,6 +16,7 @@ export class CreatePostController {
   @Post()
   @UsePipes(new ValidationPipe())
   async createPost(@Body() payload: CreatePostDto): Promise<PostScehma> {
+    console.log('payload: ', payload);
     return this.postService.createPost(payload);
   }
 }

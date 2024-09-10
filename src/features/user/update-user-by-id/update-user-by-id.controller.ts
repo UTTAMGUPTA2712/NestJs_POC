@@ -1,6 +1,7 @@
 import { Body, Controller, Param, Put } from '@nestjs/common';
 import { UpdateUserByIdService } from './update-user-by-id.service';
 import { UpdateUserByIdDto } from './update-user-by-id.dto';
+import { User } from 'src/domain/user/user.entity';
 
 @Controller('users')
 export class UpdateUserByIdController {
@@ -9,7 +10,7 @@ export class UpdateUserByIdController {
   @Put(':id')
   async updateUserById(
     @Param('id') id: number,
-    @Body() payload: UpdateUserByIdDto,
+    @Body() payload: User,
   ): Promise<{ message: string }> {
     await this.userService.updateUserById(id, payload);
     return {

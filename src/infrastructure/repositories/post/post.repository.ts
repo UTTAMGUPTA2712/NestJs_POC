@@ -32,6 +32,6 @@ export class PostRepository extends Repository<Post> {
   }
 
   async findOnePostByUUID(uuid: string): Promise<Post | null> {
-    return this.findOne({ where: { uuid } });
+    return this.findOne({ where: { id: 1 } });
   }
 }

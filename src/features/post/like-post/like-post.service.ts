@@ -3,6 +3,7 @@ import { LikeRepository } from 'src/infrastructure/repositories/like/like.reposi
 import { PostRepository } from 'src/infrastructure/repositories/post/post.repository';
 import { UserRepository } from 'src/infrastructure/repositories/user/user.repository';
 import { LikePostDto } from './like-post.dto';
+import { Id } from 'src/domain/common/value-objects/id';
 
 @Injectable()
 export class LikePostService {
@@ -16,9 +17,7 @@ export class LikePostService {
   ) {}
 
   async likePost(id: string, body: LikePostDto): Promise<void> {
-    console.log('id: ', id);
     const { user_uuid, reaction } = body;
-    console.log('user_uuid: ', user_uuid);
     const post = await this.postsRepository.findOnePostByUUID(id);
     if (!post) {
       throw new Error('Post not found');

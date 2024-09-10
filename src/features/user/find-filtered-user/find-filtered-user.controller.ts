@@ -4,10 +4,11 @@ import { User } from 'src/domain/user/user.entity';
 
 @Controller('users')
 export class FindFilteredUserController {
-  constructor(private userService: FindFilteredUserService) {}
+  constructor(private userService: FindFilteredUserService) { }
 
   @Get()
   findAllUsers(): Promise<User[]> {
+    console.log('Promise: ');
     return this.userService.findAllUsers();
   }
 }

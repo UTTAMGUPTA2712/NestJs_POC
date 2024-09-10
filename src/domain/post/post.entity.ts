@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 import { User } from 'src/domain/user/user.entity';
 import { Like } from './like.entity';
+import { Content } from './value-objects/content';
 
 @Entity()
 export class Post {
@@ -32,6 +33,15 @@ export class Post {
 
   @Column({
     type: 'text',
+    transformer: {
+      to(value: string): string {
+        return new Content(value).getValue();
+      },
+      from(value: string): Content {
+        if (!value) return null;
+        return new Content(value);
+      },
+    },
   })
   content: string;
 

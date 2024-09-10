@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from 'src/infrastructure/repositories/user/user.repository';
-import { UpdateUserByIdDto } from './update-user-by-id.dto';
+import { User } from 'src/domain/user/user.entity';
 
 @Injectable()
 export class UpdateUserByIdService {
@@ -9,7 +9,7 @@ export class UpdateUserByIdService {
     private usersRepository: UserRepository,
   ) {}
 
-  async updateUserById(id: number, payload: UpdateUserByIdDto): Promise<void> {
+  async updateUserById(id: number, payload: User): Promise<void> {
     this.usersRepository.updateUserById(id, payload);
   }
 }

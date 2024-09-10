@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/domain/user/user.entity';
 import { DataSource, Repository } from 'typeorm';
-import { UpdateUserByIdDto } from 'src/features/user/update-user-by-id/update-user-by-id.dto';
 import { CreateUserDto } from 'src/features/user/create-user/create-user.dto';
+import { Name } from 'src/domain/user/value-objects/name';
+import { Email } from 'src/domain/user/value-objects/email';
+import { Password } from 'src/domain/user/value-objects/password';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -15,10 +17,16 @@ export class UserRepository extends Repository<User> {
   }
 
   async initializeUser(payload: CreateUserDto): Promise<User> {
-    return this.save(this.create(payload));
+    const data = {
+      name: new Name(payload.name),
+      email: new Email(payload.email),
+      password: new Password(payload.password),
+      parent_information: payload.parent_information,
+    };
+    return this.save(this.create(data));
   }
 
-  async updateUserById(id: number, payload: UpdateUserByIdDto): Promise<void> {
+  async updateUserById(id: number, payload: User): Promise<void> {
     await this.update({ id }, payload);
   }
 

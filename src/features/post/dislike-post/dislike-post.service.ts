@@ -3,6 +3,7 @@ import { LikeRepository } from 'src/infrastructure/repositories/like/like.reposi
 import { PostRepository } from 'src/infrastructure/repositories/post/post.repository';
 import { UserRepository } from 'src/infrastructure/repositories/user/user.repository';
 import { DislikePostDto } from './dislike-post.dto';
+import { Id } from 'src/domain/common/value-objects/id';
 
 @Injectable()
 export class DislikePostService {
@@ -13,12 +14,10 @@ export class DislikePostService {
     private postsRepository: PostRepository,
     private usersRepository: UserRepository,
     private dislikeRepository: LikeRepository,
-  ) {}
+  ) { }
 
   async dislikePost(id: string, body: DislikePostDto): Promise<void> {
-    console.log('id: ', id);
     const { user_uuid } = body;
-    console.log('user_uuid: ', user_uuid);
     const post = await this.postsRepository.findOnePostByUUID(id);
     if (!post) {
       throw new Error('Post not found');
