@@ -1,4 +1,4 @@
-import { Transform, Type } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Content } from 'src/domain/post/value-objects/content';
 
@@ -8,9 +8,9 @@ export class CreatePostDto {
   title: string;
 
   @IsNotEmpty()
-  @Type(() => Content)
-  @Transform(({ value }) => new Content(value))
-  content: Content;
+  // @ValidateNested()
+  @Transform((data) => new Content(data.value).getValue())
+  content: string;
 
   @IsString()
   @IsNotEmpty()

@@ -13,6 +13,7 @@ export class Content {
 
   private validate() {
     const errors = validateSync(this);
+    console.log('errors: ', errors);
 
     if (errors.length > 0) {
       throw new BadRequestException('Invalid content');

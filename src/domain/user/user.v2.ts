@@ -47,8 +47,8 @@ export class User {
     type: 'varchar',
     length: 50,
     transformer: {
-      to: (value: string) => {
-        return new Name(value).getValue();
+      to: (value: Name) => {
+        return value.getValue();
       },
       from: (value: string) => {
         return value;
@@ -63,8 +63,8 @@ export class User {
     unique: true,
     update: false,
     transformer: {
-      to: (value: string) => {
-        return new Email(value).getValue();
+      to: (value: Email) => {
+        return value.getValue();
       },
       from: (value: string) => {
         return value;
@@ -78,8 +78,8 @@ export class User {
     length: 50,
     select: false,
     transformer: {
-      to: (value: string) => {
-        return new Password(value).getValue();
+      to: (value: Password) => {
+        return value.getValue();
       },
       from: (value: string) => {
         return value;

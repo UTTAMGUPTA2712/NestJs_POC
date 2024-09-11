@@ -1,78 +1,70 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Value Object Pattern
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This repository explores two important concepts in object-oriented programming: **Object Identity** and the **Value Object Pattern**. Understanding these concepts is crucial for designing robust object-oriented systems that handle identity and equality correctly.
 
-## Description
+The Value Object Pattern is a crucial concept in object-oriented design, particularly when dealing with objects that should be compared based on their properties rather than their identities. Before diving into the Value Object Pattern itself, it’s essential to understand the underlying concepts of object identity and how memory allocation on disk influences these patterns.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This repository is organized to provide a comprehensive guide to the Value Object Pattern and its related concepts. Below is an overview of the content you’ll find in the corresponding concept directories:
 
-## Installation
+### Contents
 
-```bash
-$ npm install
-```
+1. **[value-object/](concepts/value-object/README.md)**
+   - This section introduces the Value Object Concept, explains its importance, and demonstrates its implementation in various programming scenarios..
 
-## Running the app
+2. **[object-identity/](concepts/object-identity/README.md)**
+   - Object identity is fundamental to understanding how objects are uniquely identified within an object-oriented system. This section explains object identity.
 
-```bash
-# development
-$ npm run start
+3. **[memory-allocation-in-disk/](concepts/memory-allocation/README.md)**
+   - Understanding memory allocation in disk provides insight into how objects are stored and managed in memory. This section explores how memory allocation impacts object identity and the application of the Value Object Pattern.
 
-# watch mode
-$ npm run start:dev
+## Getting Started
 
-# production mode
-$ npm run start:prod
-```
+To fully grasp the Value Object Pattern, we recommend starting with the `object-identity/` section. This will provide a foundation for understanding why and when the Value Object is necessary. Afterward, explore the `memory-allocation-in-disk/` to see how memory management affects object design. Finally, delve into the `value-object/` section for an in-depth look at the concept itself.
 
-## Test
+## When to Use the Value Object Pattern
 
-```bash
-# unit tests
-$ npm run test
+1. Apply the Value Object pattern when you need high-performance applications with reduced memory overhead, especially in systems requiring efficient data management
 
-# e2e tests
-$ npm run test:e2e
+2. When representing a set of attributes that together describe an entity but without an identity.
 
-# test coverage
-$ npm run test:cov
-```
+3. When you need to ensure that objects cannot be altered once created.
 
-## Support
+4. An application requires high performance and the data involved is immutable.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+5. Objects frequently access a particular piece of immutable data.
 
-## Stay in touch
+6. When the equality of the objects is based on the value of the properties, not the identity.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Benefits and Trade-offs of Value Object Pattern
 
-## License
+### Benefits:
 
-Nest is [MIT licensed](LICENSE).
+1. Simplifies code by making objects immutable.
+2. Thread-safe as the object's state cannot change after creation.
+3. Easier to reason about and maintain.
+4. Reduces the memory overhead by avoiding separate allocations for immutable data.
+5. Improves performance by minimizing memory accesses and reducing cache misses.
 
+### Trade-offs:
 
+1. Creating a new object for every change can be less efficient for complex objects.
+2. Increased memory usage due to the creation of multiple objects representing different states.
+3. Increases complexity in object design and can lead to tightly coupled systems.
+4. Modifying the embedded value necessitates changes across all objects that embed this value, which can complicate maintenance.
 
-npx typeorm-ts-node-commonjs   migration:generate  -d ./src/infrastructure/database/database.providers.ts ./src/migrations/updated-schema
-# NestJs_POC
+## Next Steps
+
+To begin, navigate to the [object-identity/](concepts/object-identity/README.md) directory and start with understanding Object Identity.
+
+## Resources
+
+- [Value Object Pattern](https://martinfowler.com/bliki/ValueObject.html) - Martin Fowler's article on the Value Object Pattern.
+- [Value Object Pattern](https://medium.com/@hermesmonteiro1981/valueobject-pattern-when-to-use-identify-pattern-situation-e753292113c7) - When to use the Value Object Pattern.
+- [Object Identity](https://link.springer.com/referenceworkentry/10.1007/978-0-387-39940-9_1470) - Object Identity concept.
+- [Memory Allocation in Disk](https://www.geeksforgeeks.org/memory-allocation-in-disk-operating-system/) - Memory Allocation in Disk in Operating System.
+- [Anemic Domain Model](https://khalilstemmler.com/wiki/anemic-domain-model/) - Anemic Domain Model and why it's considered an anti-pattern.
+- [Practical ddd in typescript](https://javascript.plainenglish.io/practical-ddd-in-typescript-value-object-b76bcd2d9283) - Practical DDD in TypeScript: Value Object.
+- [Entity vs. Value Object](https://enterprisecraftsmanship.com/posts/entity-vs-value-object-the-ultimate-list-of-differences/) - Entity vs. Value Object: the ultimate list of differences.
+- [Is it a DTO or a Value Object?](https://matthiasnoback.nl/2022/09/is-it-a-dto-or-a-value-object/) - Is it a DTO or a Value Object?

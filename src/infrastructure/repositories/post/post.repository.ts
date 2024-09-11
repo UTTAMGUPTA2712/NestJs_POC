@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Post } from 'src/domain/post/post.entity';
 import { User } from 'src/domain/user/user.entity';
+import { Content } from 'src/domain/post/value-objects/content';
 
 class CreatePost {
   content: string;
@@ -20,6 +21,11 @@ export class PostRepository extends Repository<Post> {
   }
 
   async initializePost(payload: CreatePost): Promise<Post> {
+    // const data = {
+    //   content: new Content(payload.content),
+    //   title: payload.title,
+    //   user: payload.user,
+    // };
     return this.save(this.create(payload));
   }
 
@@ -32,6 +38,6 @@ export class PostRepository extends Repository<Post> {
   }
 
   async findOnePostByUUID(uuid: string): Promise<Post | null> {
-    return this.findOne({ where: { id: 1 } });
+    return this.findOne({ where: { uuid } });
   }
 }
