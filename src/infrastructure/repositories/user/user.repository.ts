@@ -26,7 +26,7 @@ export class UserRepository extends Repository<User> {
     return this.save(this.create(payload));
   }
 
-  async updateUserById(id: number, payload: User): Promise<void> {
+  async updateUserById(id: number, payload: Partial<User>): Promise<void> {
     // const data = {
     //   name: new Name(payload.name),
     //   email: new Email(payload.email),

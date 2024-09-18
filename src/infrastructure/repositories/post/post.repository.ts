@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Post } from 'src/domain/post/post.entity';
 import { User } from 'src/domain/user/user.entity';
-import { Content } from 'src/domain/post/value-objects/content';
 
 class CreatePost {
   content: string;
@@ -33,8 +32,25 @@ export class PostRepository extends Repository<Post> {
     await this.update({ id }, payload);
   }
 
-  async findOnePostById(id: number): Promise<Post | null> {
-    return this.findOne({ where: { id } });
+  async findPostById(id: number, getLikesCount?: boolean): Promise<Post> {
+    if (getLikesCount) {
+      const data = await this.createQueryBuilder('post')
+        .leftJoin('post.likes', 'like')
+        .select('post')
+        .addSelect('COUNT(like.id)', 'likeCount')
+        .where('post.id = :id', { id })
+        .groupBy('post.id')
+        .getRawOne();
+      console.log('data: ', data);
+      return data;
+    } else {
+      const response = await this.createQueryBuilder('post')
+        .leftJoinAndSelect('post.likes', 'like')
+        .where('post.id = :id', { id })
+        .getOne();
+      console.log('response: ', response);
+      return response;
+    }
   }
 
   async findOnePostByUUID(uuid: string): Promise<Post | null> {

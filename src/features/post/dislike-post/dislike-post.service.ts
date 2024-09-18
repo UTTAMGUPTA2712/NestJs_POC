@@ -15,15 +15,22 @@ export class DislikePostService {
     private dislikeRepository: LikeRepository,
   ) {}
 
-  async dislikePost(id: string, body: DislikePostDto): Promise<void> {
+  async dislikePost(id: number, body: DislikePostDto): Promise<void> {
     const { user_uuid } = body;
-    const post = await this.postsRepository.findOnePostByUUID(id);
+    const post = await this.postsRepository.findPostById(id);
     if (!post) {
       throw new NotFoundException('Post not found');
     }
     const user = await this.usersRepository.findUserByUUID(user_uuid);
     if (!user) {
       throw new NotFoundException('User not found');
+    }
+
+    if (
+      post.likes.length === 0 ||
+      !post.likes.find((like) => like.user_id === user.id && like.liked)
+    ) {
+      throw new NotFoundException('User has not liked this post');
     }
 
     const dislikePayload = {

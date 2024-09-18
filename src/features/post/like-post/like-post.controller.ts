@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Patch } from '@nestjs/common';
 import { LikePostService } from './like-post.service';
-import { LikePostDto } from './like-post.dto';
+import { LikePostDto, LikePostParamsDto } from './like-post.dto';
 
 @Controller('posts')
 export class LikePostController {
@@ -8,7 +8,7 @@ export class LikePostController {
 
   @Patch(':id/like')
   async likePost(
-    @Param() param: { id: string },
+    @Param() param: LikePostParamsDto,
     @Body() body: LikePostDto,
   ): Promise<{ message: 'Post liked Successfully' }> {
     const { id } = param;

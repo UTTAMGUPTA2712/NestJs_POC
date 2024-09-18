@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Patch } from '@nestjs/common';
 import { DislikePostService } from './dislike-post.service';
-import { DislikePostDto } from './dislike-post.dto';
+import { DislikePostDto, DislikePostParamsDto } from './dislike-post.dto';
 
 @Controller('posts')
 export class DislikePostController {
@@ -8,7 +8,7 @@ export class DislikePostController {
 
   @Patch(':id/dislike')
   async dislikePost(
-    @Param() param: { id: string },
+    @Param() param: DislikePostParamsDto,
     @Body() body: DislikePostDto,
   ): Promise<{ message: 'Post disliked Successfully' }> {
     const { id } = param;
